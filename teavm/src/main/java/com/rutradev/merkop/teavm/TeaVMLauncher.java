@@ -1,8 +1,8 @@
-package com.rutradev.kodapo.teavm;
+package com.rutradev.merkop.teavm;
 
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.TeaApplication;
-import com.rutradev.kodapo.Main;
+import com.rutradev.merkop.Main;
 
 /**
  * Launches the TeaVM/HTML application.

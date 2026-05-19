@@ -1,4 +1,4 @@
-package com.rutradev.kodapo;
+package com.rutradev.merkop;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
