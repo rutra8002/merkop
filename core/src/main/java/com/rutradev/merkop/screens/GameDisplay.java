@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.rutradev.merkop.Main;
+import com.rutradev.merkop.Config;
 import com.rutradev.merkop.camera.Camera2D;
 import com.rutradev.merkop.world.Player;
 
@@ -17,9 +18,21 @@ public class GameDisplay extends BaseDisplay {
     public GameDisplay(Main game) {
         super(game);
         this.player = new Player(320, 240);
-        this.camera = new Camera2D(640, 480, 320, 240, 3f);
+        this.camera = new Camera2D(Config.DEFAULT_VIEWPORT_WIDTH, Config.DEFAULT_VIEWPORT_HEIGHT,
+            320, 240,
+                                   Config.DEFAULT_SMOOTH_FACTOR);
         this.shapeRenderer = new ShapeRenderer();
         this.font = new BitmapFont();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        camera.onResize(width, height);
+
+        game.getCamera().viewportWidth = width;
+        game.getCamera().viewportHeight = height;
+        game.getCamera().position.set(width * 0.5f, height * 0.5f, 0f);
+        game.getCamera().update();
     }
 
     @Override
@@ -30,7 +43,6 @@ public class GameDisplay extends BaseDisplay {
         player.update(delta);
         camera.updateTarget(player.getPosition().x + player.getWidth() / 2,
                            player.getPosition().y + player.getHeight() / 2, delta);
-        camera.zoomIntro(delta);
 
         shapeRenderer.setProjectionMatrix(camera.getCamera().combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -39,7 +51,7 @@ public class GameDisplay extends BaseDisplay {
 
         shapeRenderer.end();
 
-        game.getBatch().setProjectionMatrix(game.getUICamera().combined);
+        game.getBatch().setProjectionMatrix(game.getCamera().combined);
         game.getBatch().begin();
         font.draw(game.getBatch(), "FPS: " + Gdx.graphics.getFramesPerSecond(), 10,
                  Gdx.graphics.getHeight() - 10);

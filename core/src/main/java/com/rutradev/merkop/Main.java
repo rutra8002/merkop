@@ -7,14 +7,14 @@ import com.rutradev.merkop.screens.GameDisplay;
 
 public class Main extends Game {
     private SpriteBatch batch;
-    private OrthographicCamera uiCamera;
+    private OrthographicCamera camera;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        uiCamera = new OrthographicCamera(640, 480);
-        uiCamera.position.set(320, 240, 0);
-        uiCamera.update();
+        camera = new OrthographicCamera(Config.DEFAULT_VIEWPORT_WIDTH, Config.DEFAULT_VIEWPORT_HEIGHT);
+        camera.position.set(Config.DEFAULT_VIEWPORT_WIDTH * 0.5f, Config.DEFAULT_VIEWPORT_HEIGHT * 0.5f, 0);
+        camera.update();
 
         setScreen(new GameDisplay(this));
     }
@@ -29,8 +29,8 @@ public class Main extends Game {
         return batch;
     }
 
-    public OrthographicCamera getUICamera() {
-        return uiCamera;
+    public OrthographicCamera getCamera() {
+        return camera;
     }
 }
 
