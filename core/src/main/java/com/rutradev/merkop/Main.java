@@ -1,42 +1,36 @@
 package com.rutradev.merkop;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.rutradev.merkop.screens.GameDisplay;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main extends ApplicationAdapter {
+public class Main extends Game {
     private SpriteBatch batch;
-    private Texture image;
-    private BitmapFont font;
+    private OrthographicCamera uiCamera;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        image = new Texture("libgdx.png");
-        font = new BitmapFont();
-    }
+        uiCamera = new OrthographicCamera(640, 480);
+        uiCamera.position.set(320, 240, 0);
+        uiCamera.update();
 
-    @Override
-    public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        batch.draw(image, 140, 210);
-
-        int fps = Gdx.graphics.getFramesPerSecond();
-        font.draw(batch, "FPS: " + fps, 10, Gdx.graphics.getHeight() - 10);
-
-
-        batch.end();
+        setScreen(new GameDisplay(this));
     }
 
     @Override
     public void dispose() {
+        super.dispose();
         batch.dispose();
-        image.dispose();
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public OrthographicCamera getUICamera() {
+        return uiCamera;
     }
 }
+
