@@ -1,21 +1,21 @@
 package com.rutradev.merkop.screens;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.Gdx;
 import com.rutradev.merkop.Main;
+import com.rutradev.merkop.render.Renderer;
 
 public abstract class BaseDisplay implements Screen {
     protected Main game;
+    protected Renderer renderer;
 
     public BaseDisplay(Main game) {
         this.game = game;
+        this.renderer = game.getRenderer();
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        renderer.clearScreen();
     }
 
     @Override
